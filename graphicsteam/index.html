@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나만의 3D 갤러리 전시관</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #000;
+    }
+    canvas {
+      display: block;
+    }
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      z-index: 1000;
+    }
+    #info {
+      position: absolute;
+      top: 10px;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <!-- 팀장 & 코어 개발자 담당: 웹페이지 레이아웃 및 로딩 시스템 - 시작 -->
+  <div id="loading">로딩 중...</div>
+  <div id="info">나만의 3D 갤러리 전시관</div>
+  <!-- 팀장 & 코어 개발자 담당: 웹페이지 레이아웃 및 로딩 시스템 - 끝 -->
+
+  <!-- 팀장 & 코어 개발자 담당: 필요한 Three.js 라이브러리 로드 - 시작 -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/TextureLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.7/build/dat.gui.min.js"></script>
+  <!-- 팀장 & 코어 개발자 담당: 필요한 Three.js 라이브러리 로드 - 끝 -->
+  
+  <!-- 메인 자바스크립트 파일 로드 -->
+  <script src="main.js"></script>
+</body>
+</html>
