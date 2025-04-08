@@ -151,50 +151,78 @@ function createExhibits() {
   const pedestalGeometry = new THREE.BoxGeometry(2, 1, 2);
   const pedestalMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
   
-  // 전시물 1: 큐브
+  // 전시물 1: 폼 핑거 https://www.cgtrader.com/free-3d-models/sports/equipment/cc0-foam-finger
   const pedestal1 = new THREE.Mesh(pedestalGeometry, pedestalMaterial);
   pedestal1.position.set(-8, 0.5, -10);
   pedestal1.castShadow = true;
   pedestal1.receiveShadow = true;
   scene.add(pedestal1);
+
+  const loader = new THREE.GLTFLoader();
+  loader.load(
+    'assets/foamfinger.glb',
+    function (glb) {
+        const model = glb.scene;
+        model.scale.set(6, 6, 6)
+        model.position.set(-8, 2.25, -10);
+        model.castShadow = true;
+        model.userData = { type: 'exhibit', name: '폼 핑거', description: '응원용 소품' };
+        scene.add(glb.scene);
+        console.log('Model loaded:', glb);
+    },
+    undefined,
+    function (error) {
+        console.error('An error occurred while loading the glb:', error);
+    }
+  );
   
-  const cubeGeometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
-  const cubeMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-  cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-  cube.position.set(-8, 2, -10);
-  cube.castShadow = true;
-  cube.userData = { type: 'exhibit', name: '큐브 작품', description: '기본적인 큐브 전시물입니다.' };
-  scene.add(cube);
-  
-  // 전시물 2: 구체
+  // 전시물 2: 햄버거 https://www.cgtrader.com/free-3d-models/food/vegetable/stylized-burger-45d51d8c-5836-4252-8b16-8a2d446cb7a9
   const pedestal2 = new THREE.Mesh(pedestalGeometry, pedestalMaterial);
   pedestal2.position.set(0, 0.5, -10);
   pedestal2.castShadow = true;
   pedestal2.receiveShadow = true;
   scene.add(pedestal2);
+
+  loader.load(
+    'assets/burger.glb',
+    function (glb2) {
+        const model = glb2.scene;
+        model.scale.set(0.5, 0.5, 0.5)
+        model.position.set(0, 0.85, -10);
+        model.castShadow = true;
+        model.userData = { type: 'exhibit', name: '햄버거', description: '맛도 좋고 영양도 좋은 햄버거' };
+        scene.add(glb2.scene);
+        console.log('Model loaded:', glb2);
+    },
+    undefined,
+    function (error) {
+        console.error('An error occurred while loading the glb:', error);
+    }
+  );
   
-  const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
-  const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
-  sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-  sphere.position.set(0, 2, -10);
-  sphere.castShadow = true;
-  sphere.userData = { type: 'exhibit', name: '구체 작품', description: '완벽한 구체 전시물입니다.' };
-  scene.add(sphere);
-  
-  // 전시물 3: 원뿔
+  // 전시물 3: 농구공 https://www.cgtrader.com/free-3d-models/sports/equipment/basketball-6bb1cd4a-add6-4a1c-acac-d3a5ae4d2595
   const pedestal3 = new THREE.Mesh(pedestalGeometry, pedestalMaterial);
   pedestal3.position.set(8, 0.5, -10);
   pedestal3.castShadow = true;
   pedestal3.receiveShadow = true;
   scene.add(pedestal3);
-  
-  const coneGeometry = new THREE.ConeGeometry(1, 2, 32);
-  const coneMaterial = new THREE.MeshStandardMaterial({ color: 0x0000ff });
-  cone = new THREE.Mesh(coneGeometry, coneMaterial);
-  cone.position.set(8, 2, -10);
-  cone.castShadow = true;
-  cone.userData = { type: 'exhibit', name: '원뿔 작품', description: '뾰족한 원뿔 전시물입니다.' };
-  scene.add(cone);
+
+  loader.load(
+    'assets/basketball.glb',
+    function (glb3) {
+        const model = glb3.scene;
+        model.scale.set(3, 3, 3)
+        model.position.set(8, 2.1, -10);
+        model.castShadow = true;
+        model.userData = { type: 'exhibit', name: '농구공', description: '공' };
+        scene.add(glb3.scene);
+        console.log('Model loaded:', glb3);
+    },
+    undefined,
+    function (error) {
+        console.error('An error occurred while loading the glb:', error);
+    }
+  );
 }
 
 // ============================================
