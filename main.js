@@ -6,6 +6,7 @@
 // ============================================
 
 // 기본 변수 선언
+
 let scene, camera, renderer, controls;
 let clock = new THREE.Clock();
 let mixers = [];
@@ -92,6 +93,85 @@ window.addEventListener('load', init);
 
 // ============================================
 // 팀장 & 코어 개발자 담당: 씬, 카메라, 빛, 전반적인 모든 요소 구성 [천효민] - 끝
+function initControls() {
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.05;
+  controls.target.set(0, 2, -10); // 갤러리 중앙 지점을 타겟팅
+  controls.update();
+}
+
+function changeCameraView() {
+  const aspectRatio = window.innerWidth / window.innerHeight;
+  const cameraNew = new THREE.PerspectiveCamera(45, aspectRatio, 1, 2000);
+  cameraNew.position.set(0, 5, 15);  // 새로운 카메라 위치
+  scene.add(cameraNew);
+
+  // 카메라가 전환될 때의 애니메이션 효과
+  const tween = new TWEEN.Tween(camera.position)
+    .to({ x: 0, y: 10, z: 20 }, 1000)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .start();
+}
+
+function addLighting() {
+  // 기본적인 환경광 추가
+  const ambientLight = new THREE.AmbientLight(0x404040, 1); // 연한 회색
+  scene.add(ambientLight);
+
+  // 주요 전시물을 비추는 방향광 추가
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+  directionalLight.position.set(5, 10, 5).normalize();
+  scene.add(directionalLight);
+
+  // 특정 전시물에 포인트 라이트 추가 (예: 주요 작품에 집중 빛)
+  const pointLight = new THREE.PointLight(0xff0000, 2, 10); // 붉은색 포인트 라이트
+  pointLight.position.set(0, 10, 0);  // 전시물 위치에 맞게 설정
+  scene.add(pointLight);
+}
+const lightParams = {
+  intensity: 1,
+  color: '#ffffff',
+};
+
+function setupLightingControls() {
+  const gui = new dat.GUI();
+  gui.add(lightParams, 'intensity', 0, 2).onChange(value => {
+    directionalLight.intensity = value;
+    pointLight.intensity = value;
+  });
+
+  gui.addColor(lightParams, 'color').onChange(value => {
+    directionalLight.color.set(value);
+    pointLight.color.set(value);
+  });
+}
+
+function addBloomEffect() {
+  const renderPass = new THREE.RenderPass(scene, camera);
+  const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+  const composer = new THREE.EffectComposer(renderer);
+  composer.addPass(renderPass);
+  composer.addPass(bloomPass);
+}
+
+function setupInteractions() {
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+
+  window.addEventListener('click', (event) => {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects([cube, sphere, cone]);
+
+    if (intersects.length > 0) {
+      const obj = intersects[0].object;
+      alert(`작품명: ${obj.userData.name}\n설명: ${obj.userData.description}`);
+    }
+  });
+}
 // ============================================
 
 // ============================================
@@ -228,7 +308,7 @@ function setupLighting() {
   
   scene.add(directionalLight);
   
-  // 스팟라이트 (전시물 강조)
+  //스팟라이트 (전시물 강조)
   spotLight1 = new THREE.SpotLight(0xffffff, 1);
   spotLight1.position.set(-8, 10, -8);
   spotLight1.angle = Math.PI / 8;
