@@ -151,50 +151,57 @@ function createExhibits() {
   const pedestalGeometry = new THREE.BoxGeometry(2, 1, 2);
   const pedestalMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
   
-  // 전시물 1: 큐브
+  // 전시물 1: 금성
   const pedestal1 = new THREE.Mesh(pedestalGeometry, pedestalMaterial);
   pedestal1.position.set(-8, 0.5, -10);
   pedestal1.castShadow = true;
   pedestal1.receiveShadow = true;
   scene.add(pedestal1);
   
-  const cubeGeometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
-  const cubeMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-  cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-  cube.position.set(-8, 2, -10);
-  cube.castShadow = true;
-  cube.userData = { type: 'exhibit', name: '큐브 작품', description: '기본적인 큐브 전시물입니다.' };
-  scene.add(cube);
+  const textureLoader = new THREE.TextureLoader();
+  const venusTexture = textureLoader.load('./textures/venus.jpg');
   
-  // 전시물 2: 구체
+  const venusGeometry = new THREE.SphereGeometry(1, 32, 32);
+  const venusMaterial = new THREE.MeshStandardMaterial({ map: venusTexture });
+  venus = new THREE.Mesh(venusGeometry, venusMaterial);
+  venus.position.set(-8, 2, -10);
+  venus.castShadow = true;
+  venus.userData = { type: 'exhibit', name: '구체작품', description: '금성 모형 전시물물입니다.' };
+  scene.add(venus);
+  
+  // 전시물 2: 벽돌블럭
   const pedestal2 = new THREE.Mesh(pedestalGeometry, pedestalMaterial);
   pedestal2.position.set(0, 0.5, -10);
   pedestal2.castShadow = true;
   pedestal2.receiveShadow = true;
   scene.add(pedestal2);
   
-  const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
-  const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
-  sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-  sphere.position.set(0, 2, -10);
-  sphere.castShadow = true;
-  sphere.userData = { type: 'exhibit', name: '구체 작품', description: '완벽한 구체 전시물입니다.' };
-  scene.add(sphere);
+  const brickTexture = textureLoader.load('./textures/brick.jpg');
+  const brickGeometry = new THREE.BoxGeometry(1.5, 1.5, 1.5); 
+  const brickMaterial = new THREE.MeshStandardMaterial({ map: brickTexture });
+  brick = new THREE.Mesh(brickGeometry, brickMaterial);
+  brick.position.set(0, 2, -10);
+  brick.castShadow = true;
+  brick.userData = { type: 'exhibit', name: '큐브작품', description: '벽돌블럭 전시물물입니다.' };
+  scene.add(brick);
   
-  // 전시물 3: 원뿔
+  
+  // 전시물 3: 축구공
   const pedestal3 = new THREE.Mesh(pedestalGeometry, pedestalMaterial);
   pedestal3.position.set(8, 0.5, -10);
   pedestal3.castShadow = true;
   pedestal3.receiveShadow = true;
   scene.add(pedestal3);
+
+  const ballTexture = textureLoader.load('./textures/ball.png');
   
-  const coneGeometry = new THREE.ConeGeometry(1, 2, 32);
-  const coneMaterial = new THREE.MeshStandardMaterial({ color: 0x0000ff });
-  cone = new THREE.Mesh(coneGeometry, coneMaterial);
-  cone.position.set(8, 2, -10);
-  cone.castShadow = true;
-  cone.userData = { type: 'exhibit', name: '원뿔 작품', description: '뾰족한 원뿔 전시물입니다.' };
-  scene.add(cone);
+  const ballGeometry = new THREE.SphereGeometry(1, 32, 32);
+  const ballMaterial = new THREE.MeshStandardMaterial({ map: ballTexture });
+  ball = new THREE.Mesh(ballGeometry, ballMaterial);
+  ball.position.set(8, 2, -10);
+  ball.castShadow = true;
+  ball.userData = { type: 'exhibit', name: '구체작품', description: '축구공 전시물입니다다.' };
+  scene.add(ball);
 }
 
 // ============================================
